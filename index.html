@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#eeeae0" />
+<title>VAGABOND / 非売品</title>
+<meta name="description" content="An unofficial, research-led gallery of scarce Vagabond lottery posters, event editions and surviving promotional ephemera." />
+<style>
+:root{
+  --paper:#eeeae0;
+  --paper-2:#e6e0d3;
+  --ink:#11100e;
+  --muted:#6e685f;
+  --hair:rgba(17,16,14,.19);
+  --dark:#0d0c0b;
+  --dark-ink:#eee9dd;
+  --serif:"Yu Mincho","Hiragino Mincho ProN","Hiragino Mincho Pro",Baskerville,"Times New Roman",serif;
+  --sans:"Avenir Next",Avenir,"Helvetica Neue",Arial,sans-serif;
+  --side:clamp(18px,2.8vw,50px);
+}
+*{box-sizing:border-box}
+html{background:var(--paper);scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+button,input,textarea{font:inherit;color:inherit}
+button{background:none;border:0;padding:0}
+a{color:inherit;text-underline-offset:.24em;text-decoration-thickness:1px}
+img{display:block;max-width:100%}
+::selection{background:#1a1815;color:#f3efe5}
+
+.chrome{
+  position:fixed;z-index:40;inset:0 0 auto;height:54px;padding:0 var(--side);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  font-family:var(--sans);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  pointer-events:none;mix-blend-mode:multiply
+}
+.chrome>*{pointer-events:auto}
+.brand{justify-self:start;white-space:nowrap}
+.counter{justify-self:center;font-variant-numeric:tabular-nums}
+.tools-open{justify-self:end;cursor:pointer;letter-spacing:inherit;text-transform:inherit;padding:10px 0}
+.tools-open:hover,.tools-open:focus-visible{text-decoration:underline;text-underline-offset:4px}
+
+.opening{min-height:100svh;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.65fr);gap:7vw;align-items:end;padding:16vh 9vw 8vh 10vw}
+.opening h1{margin:0;font-size:clamp(62px,12.2vw,190px);font-weight:400;line-height:.74;letter-spacing:-.075em;max-width:6ch}
+.opening h1 small{display:block;font-family:var(--sans);font-size:.08em;letter-spacing:.21em;text-transform:uppercase;margin:0 0 3em .5em}
+.opening h1 span{display:block;margin-left:.55em}
+.opening-copy{max-width:32rem;margin-bottom:5vh;font-size:clamp(17px,1.45vw,23px);line-height:1.52}
+.opening-copy p{margin:0 0 1.15em}
+.opening-copy .micro{font-family:var(--sans);font-size:9px;line-height:1.7;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+.act{min-height:58svh;display:flex;align-items:flex-end;padding:11vh 9vw 9vh}
+.act-inner{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3vw;align-items:end}
+.act-mark{font-size:clamp(72px,12vw,180px);line-height:.72;font-weight:400}
+.act-copy{padding-bottom:.15em;max-width:31rem}
+.act-copy h2{margin:0 0 .55em;font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.17em;text-transform:uppercase}
+.act-copy p{margin:0;color:var(--muted);font-size:clamp(16px,1.35vw,21px);line-height:1.48}
+
+.route{position:relative}
+.work{min-height:var(--h,122vh);display:flex;align-items:center;padding:14vh 5vw;position:relative}
+.work.dark{background:var(--dark);color:var(--dark-ink)}
+.work.dark figcaption{color:#9f998f}.work.dark .cap-title{color:var(--dark-ink)}
+.work figure{width:var(--w,min(58vw,900px));margin:0;margin-left:var(--ml,auto);margin-right:var(--mr,auto)}
+.art-shell{position:relative;width:100%;isolation:isolate}
+.art-button{display:block;width:100%;cursor:zoom-in;text-align:inherit}
+.art-button:focus-visible{outline:1px solid currentColor;outline-offset:8px}
+.art-image{width:100%;height:auto;background:#d9d3c6;opacity:0;transition:opacity .55s ease,transform .55s cubic-bezier(.2,.75,.2,1),filter .35s ease;transform-origin:center}
+.art-image.loaded{opacity:1}
+.art-shell.failed{min-height:42vh;background:#d8d2c6}
+.art-shell.failed:after{content:"source image unavailable — provenance remains below";position:absolute;inset:0;display:grid;place-items:center;padding:3rem;text-align:center;font:9px/1.6 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#726d63}
+.art-shell.raking:after{content:"";pointer-events:none;position:absolute;inset:0;z-index:3;background:
+  radial-gradient(circle at var(--lx,50%) var(--ly,50%),rgba(255,255,255,.36) 0 7%,rgba(255,255,255,.06) 20%,rgba(0,0,0,.13) 48%,rgba(0,0,0,.02) 70%),
+  repeating-linear-gradient(93deg,rgba(0,0,0,.025) 0 1px,transparent 1px 4px);
+  mix-blend-mode:soft-light}
+.art-shell.raking .art-image{filter:contrast(1.035) saturate(.98)}
+.fold-grid{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;transition:opacity .35s ease}
+.fold-grid:before,.fold-grid:after{content:"";position:absolute;background:linear-gradient(90deg,transparent,rgba(25,21,17,.34),rgba(255,255,255,.32),transparent)}
+.fold-grid:before{left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%)}
+.fold-grid:after{top:50%;left:0;right:0;height:3px;transform:translateY(-50%) rotate(90deg)}
+.art-shell.creased .fold-grid,.art-shell.folded .fold-grid{opacity:1}
+.art-shell.folded .art-image{transform:perspective(1200px) rotateY(-11deg) rotateX(3deg) scale(.91);filter:brightness(.94) contrast(1.03);box-shadow:20px 22px 40px rgba(0,0,0,.16)}
+.measure-layer{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:visible}
+.measure-line{stroke:currentColor;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.measure-dot{fill:currentColor}.measure-text{font:11px var(--sans);letter-spacing:.08em;paint-order:stroke;stroke:var(--paper);stroke-width:5px;stroke-linejoin:round;fill:currentColor}
+.loupe{position:fixed;z-index:70;width:180px;height:180px;border-radius:50%;border:1px solid rgba(255,255,255,.75);box-shadow:0 6px 34px rgba(0,0,0,.27);background-color:#ddd;background-repeat:no-repeat;pointer-events:none;display:none;overflow:hidden}
+.loupe:after{content:"3.4×";position:absolute;right:12px;bottom:10px;font:9px var(--sans);letter-spacing:.12em;color:white;text-shadow:0 1px 3px #000}
+body.loupe-on .loupe{display:block}
+body.measure-on .art-button{cursor:crosshair}
+body.light-on .art-button{cursor:none}
+
+figcaption{margin-top:14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem 3rem;align-items:baseline;font-family:var(--sans);font-size:9px;line-height:1.62;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.cap-title{color:var(--ink)}.cap-meta{text-align:right;max-width:44em}.cap-meta a{white-space:nowrap}
+.special-note{position:absolute;font-family:var(--sans);font-size:8px;line-height:1.5;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;right:2.2vw;top:20vh}
+
+.pause{min-height:82svh;display:grid;place-items:center;font-size:clamp(64px,10vw,150px)}
+.end{min-height:115svh;display:grid;grid-template-rows:1fr auto;padding:18vh 8vw 7vh}
+.end-mark{align-self:center;justify-self:end;margin-right:10vw;font-size:clamp(48px,8vw,116px)}
+.colophon{border-top:1px solid var(--hair);padding-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:6vw;font:9px/1.7 var(--sans);letter-spacing:.075em;text-transform:uppercase;color:var(--muted)}
+.colophon p{margin:0;max-width:56em}.colophon .right{justify-self:end;text-align:right}
+
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.show{opacity:1;transform:none}
+
+.panel{position:fixed;inset:0;z-index:100;display:none;background:var(--paper);color:var(--ink)}
+.panel.open{display:block}
+.panel.dark-panel{background:var(--dark);color:var(--dark-ink)}
+.panel-head{height:58px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--side);border-bottom:1px solid var(--hair);font:9px var(--sans);letter-spacing:.15em;text-transform:uppercase;position:sticky;top:0;background:inherit;z-index:4}
+.panel.dark-panel .panel-head{border-color:rgba(255,255,255,.18)}
+.panel-head .panel-title{justify-self:center}.panel-head .panel-context{justify-self:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34vw}.panel-close{justify-self:end;cursor:pointer;letter-spacing:inherit;text-transform:inherit;padding:10px 0}.panel-close:hover,.panel-close:focus-visible{text-decoration:underline;text-underline-offset:4px}
+
+.tools-body{height:calc(100svh - 58px);overflow:auto;padding:7vh max(7vw,30px) 12vh}
+.tool-intro{max-width:34rem;margin:0 0 6vh;font-size:clamp(20px,2.4vw,36px);line-height:1.25}
+.tool-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair)}
+.tool-item{border-bottom:1px solid var(--hair)}
+.tool-btn{width:100%;display:grid;grid-template-columns:3.5rem minmax(0,1fr) minmax(180px,.75fr);gap:2vw;align-items:baseline;text-align:left;padding:1.25em 0;cursor:pointer}
+.tool-no{font:9px var(--sans);letter-spacing:.1em}.tool-name{font-size:clamp(30px,5vw,70px);line-height:.95;letter-spacing:-.04em}.tool-desc{font:10px/1.55 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tool-btn:hover .tool-name,.tool-btn:focus-visible .tool-name{font-style:italic}.tool-btn[disabled]{opacity:.32;cursor:not-allowed}.tool-btn[disabled] .tool-name{font-style:normal}
+.tool-footer{margin-top:7vh;font:9px/1.7 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);max-width:62em}
+
+.isolate-body{height:calc(100svh - 58px);display:grid;place-items:center;padding:4vh 4vw 7vh;overflow:auto}
+.isolate-body img{max-width:92vw;max-height:82svh;width:auto;height:auto;object-fit:contain}
+.isolate-source{position:fixed;left:var(--side);bottom:22px;font:9px var(--sans);letter-spacing:.12em;text-transform:uppercase}
+
+.study-body{height:calc(100svh - 58px);overflow:auto;padding:8vh max(6vw,26px) 12vh}
+.study-grid{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(320px,1.2fr);gap:7vw;align-items:start;max-width:1400px;margin:0 auto}
+.study-grid h2{margin:0 0 .4em;font-size:clamp(42px,7vw,105px);font-weight:400;line-height:.86;letter-spacing:-.055em}
+.study-grid p{font-size:18px;line-height:1.55;color:var(--muted);margin:0 0 1.2em}
+.study-meta{font:9px/1.7 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.study-meta strong{color:var(--ink);font-weight:500}
+
+.scale-wall{min-height:76vh;background:#d8d3c8;position:relative;overflow:hidden;border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1)}
+.scale-floor{position:absolute;left:0;right:0;bottom:8%;height:1px;background:rgba(0,0,0,.25)}
+.scale-person{position:absolute;bottom:8%;left:12%;width:88px;transform-origin:bottom center}
+.scale-object{position:absolute;bottom:8%;left:48%;transform:translateX(-50%);object-fit:contain;box-shadow:0 4px 13px rgba(0,0,0,.16);background:#eee}
+.scale-label{position:absolute;font:9px/1.5 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#4d4942}
+
+.compare-select{display:flex;gap:0;border-bottom:1px solid var(--hair);overflow:auto;scrollbar-width:thin;margin-bottom:6vh}
+.compare-select button{flex:0 0 auto;padding:13px 16px 12px;border-right:1px solid var(--hair);font:9px var(--sans);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.compare-select button.active{background:var(--ink);color:var(--paper)}
+.compare-stage{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:start}
+.compare-stage figure{margin:0}.compare-stage img{width:100%;height:auto}.compare-stage figcaption{grid-template-columns:1fr;margin-top:10px}
+
+.provenance-thread{max-width:900px;margin:0 auto;padding-left:5vw;position:relative}.provenance-thread:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:1px;background:var(--hair)}
+.prov-step{position:relative;padding:0 0 8vh 3vw}.prov-step:before{content:"";position:absolute;left:-5vw;top:8px;width:9px;height:9px;background:var(--ink);border-radius:50%;transform:translateX(-4px)}
+.prov-step h3{margin:0 0 .55em;font:10px var(--sans);font-weight:500;letter-spacing:.15em;text-transform:uppercase}.prov-step p{margin:0;font-size:clamp(24px,3.2vw,46px);line-height:1.1;max-width:18em}.prov-step small{display:block;margin-top:1.1em;font:9px/1.65 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);max-width:62em}
+
+.notes-wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:minmax(230px,.55fr) minmax(320px,1fr);gap:7vw}.notes-preview img{width:100%;height:auto}.notes-preview p{font:9px/1.6 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.notes-pad label{display:block;font:9px var(--sans);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem}.notes-pad textarea{display:block;width:100%;min-height:58vh;resize:vertical;border:0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:transparent;padding:22px 0;font-size:clamp(23px,3vw,40px);line-height:1.4;outline:none}.notes-status{margin-top:12px;font:9px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+.wall-body{height:calc(100svh - 58px);background:#d6d0c4;position:relative;overflow:hidden}.wall-floor{position:absolute;left:0;right:0;bottom:8%;height:1px;background:rgba(0,0,0,.22)}
+.wall-help{position:absolute;left:var(--side);top:24px;max-width:30em;font:9px/1.6 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:#5e5951;z-index:3}.wall-add{position:absolute;right:var(--side);top:21px;padding:8px 0;border-bottom:1px solid currentColor;font:9px var(--sans);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;z-index:3}.wall-piece{position:absolute;width:160px;cursor:grab;touch-action:none;user-select:none;transform:translate(-50%,-50%);box-shadow:0 6px 20px rgba(0,0,0,.14);background:#eee}.wall-piece:active{cursor:grabbing}.wall-piece img{width:100%;height:auto}.wall-piece span{display:none}
+.wall-empty{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(26px,5vw,70px);color:#928b7f;pointer-events:none}
+
+.atlas-body{height:calc(100svh - 58px);overflow:hidden;background:#e9e4da;position:relative;cursor:grab}.atlas-body.dragging{cursor:grabbing}.atlas-canvas{position:absolute;left:50%;top:50%;width:1600px;height:1000px;transform-origin:0 0}.atlas-svg{position:absolute;inset:0;width:1600px;height:1000px;overflow:visible}.atlas-line{fill:none;stroke:rgba(20,18,15,.23);stroke-width:1.3}.atlas-node{position:absolute;width:210px;transform:translate(-50%,-50%);text-align:left;cursor:pointer}.atlas-node .dot{width:9px;height:9px;background:#171512;border-radius:50%;margin-bottom:9px}.atlas-node strong{display:block;font-size:19px;line-height:1.05;font-weight:400}.atlas-node small{display:block;margin-top:5px;font:8px/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#6d675f}.atlas-key{position:absolute;left:var(--side);bottom:22px;z-index:4;font:9px/1.6 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:#655f56;pointer-events:none}
+
+.toast{position:fixed;z-index:130;left:50%;bottom:24px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#171512;color:#eee9df;padding:10px 13px;font:9px var(--sans);letter-spacing:.11em;text-transform:uppercase;transition:.25s ease}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:820px){
+  .chrome{grid-template-columns:1fr auto}.counter{display:none}
+  .opening{grid-template-columns:1fr;align-content:end;padding:16vh 7vw 7vh 9vw}.opening h1{font-size:clamp(70px,23vw,138px)}.opening-copy{margin:7vh 0 0 20vw;font-size:17px}
+  .act{min-height:48svh;padding-inline:8vw}.act-inner{gap:7vw}.act-mark{font-size:24vw}
+  .work{min-height:var(--mh,110vh);padding:12vh 0}.work figure{width:var(--mw,84vw);margin-left:var(--mml,auto);margin-right:var(--mmr,auto)}.special-note{display:none}
+  figcaption{grid-template-columns:1fr;gap:4px;padding:0 2px}.cap-meta{text-align:left}
+  .colophon{grid-template-columns:1fr}.colophon .right{justify-self:start;text-align:left}
+  .tool-btn{grid-template-columns:2rem 1fr}.tool-desc{grid-column:2}.tool-name{font-size:clamp(32px,10vw,58px)}
+  .panel-head{grid-template-columns:1fr auto}.panel-title{display:none!important}.panel-context{max-width:68vw!important}
+  .study-grid,.notes-wrap{grid-template-columns:1fr}.compare-stage{grid-template-columns:1fr}.compare-stage figure+figure{margin-top:3vh}
+  .scale-person{left:5%}.scale-object{left:58%}
+  .wall-piece{width:112px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.art-image{transition:none}}
+</style>
+</head>
+<body>
+<header class="chrome" aria-label="Gallery navigation">
+  <div class="brand">VAGABOND / 非売品</div>
+  <div class="counter" id="counter" aria-live="polite">01 / 26</div>
+  <button class="tools-open" id="toolsOpen" type="button">Tools</button>
+</header>
+
+<main>
+  <section class="opening" aria-labelledby="title">
+    <h1 id="title"><small>an unofficial object archive</small>Not for<span>sale.</span></h1>
+    <div class="opening-copy">
+      <p>Vagabond works that mostly lived outside ordinary circulation: entrant-lottery posters, exhibition editions, web-shop pieces and surviving promotional matter.</p>
+      <p class="micro">The route is the gallery. Click a work to isolate it. “Tools” studies the current object by material, scale, provenance, comparison, measurement, annotation, arrangement or spatial relation. No two tools do the same job.</p>
+    </div>
+  </section>
+
+  <section class="act" aria-labelledby="act1title"><div class="act-inner reveal"><div class="act-mark">一</div><div class="act-copy"><h2 id="act1title">I / Outside the book</h2><p>Material made to circulate briefly, or not circulate at all. Advertising, early character posters, then prize sheets folded into envelopes.</p></div></div></section>
+  <div class="route" id="route"></div>
+  <section class="pause" aria-label="Interval"><span class="reveal">間</span></section>
+  <section class="act" aria-labelledby="act2title"><div class="act-inner reveal"><div class="act-mark">折</div><div class="act-copy"><h2 id="act2title">II / Folded and mailed</h2><p>The fold is part of the object. Creases here are not damage to erase; for many prize posters they are evidence of how the work reached its owner.</p></div></div></section>
+  <div class="route" id="route2"></div>
+  <section class="pause" aria-label="Interval"><span class="reveal">空</span></section>
+  <section class="act" aria-labelledby="act3title"><div class="act-inner reveal"><div class="act-mark">展</div><div class="act-copy"><h2 id="act3title">III / Space becomes page</h2><p>The 2008–2010 Last Manga Exhibition treated the museum as a manga volume. The final objects here are not generic merch: they survive from that spatial work and its limited web shop.</p></div></div></section>
+  <div class="route" id="route3"></div>
+
+  <section class="end"><div class="end-mark reveal">余白</div><footer class="colophon"><p>Independent archival study. Art remains © its rightsholders. Object status, dimensions and distribution are taken from publisher, exhibition and collector-catalog records where available. Secondary listings are used as evidence of surviving physical copies, not as authority for the underlying artwork.</p><p class="right">Research spine: IT Planning · Kodansha · FLOWER · Contemporary Art Museum Kumamoto · Suruga-ya object archive · historical auction records.</p></footer></section>
+</main>
+
+<div class="loupe" id="loupe" aria-hidden="true"></div>
+
+<section class="panel" id="toolsPanel" aria-hidden="true" aria-label="Object tools">
+  <div class="panel-head"><span class="panel-context" id="toolsContext">Current object</span><span class="panel-title">Object tools</span><button class="panel-close" data-close="toolsPanel">Close</button></div>
+  <div class="tools-body"><p class="tool-intro">Each tool changes a different relationship with the object: sight, surface, folds, dimensions, scale, comparison, evidence, memory, arrangement or archive position.</p><ol class="tool-list" id="toolList"></ol><p class="tool-footer">Keyboard: I isolate · L loupe · R raking light · F fold · M measure · S scale · C compare · P provenance · N notes · W wall · A atlas · Esc closes or clears the active tool.</p></div>
+</section>
+
+<section class="panel dark-panel" id="isolatePanel" aria-hidden="true" aria-label="Isolated artwork">
+  <div class="panel-head"><span class="panel-context" id="isolateContext"></span><span class="panel-title">Isolate</span><button class="panel-close" data-close="isolatePanel">Close</button></div>
+  <div class="isolate-body"><img id="isolateImage" alt="" /></div><a class="isolate-source" id="isolateSource" target="_blank" rel="noreferrer">Object record ↗</a>
+</section>
+
+<section class="panel" id="studyPanel" aria-hidden="true" aria-label="Object study"><div class="panel-head"><span class="panel-context" id="studyContext"></span><span class="panel-title" id="studyTitle">Study</span><button class="panel-close" data-close="studyPanel">Close</button></div><div class="study-body" id="studyBody"></div></section>
+
+<section class="panel" id="wallPanel" aria-hidden="true" aria-label="Personal hanging wall"><div class="panel-head"><span class="panel-context">Your temporary wall</span><span class="panel-title">Curate</span><button class="panel-close" data-close="wallPanel">Close</button></div><div class="wall-body" id="wallBody"><div class="wall-floor"></div><p class="wall-help">Pin the current object, then drag the prints. Positions stay in this browser.</p><button class="wall-add" id="wallAdd">Pin current</button><div class="wall-empty" id="wallEmpty">No works hung yet.</div></div></section>
+
+<section class="panel" id="atlasPanel" aria-hidden="true" aria-label="Archive atlas"><div class="panel-head"><span class="panel-context">All objects as one route</span><span class="panel-title">Atlas</span><button class="panel-close" data-close="atlasPanel">Close</button></div><div class="atlas-body" id="atlasBody"><div class="atlas-canvas" id="atlasCanvas"><svg class="atlas-svg" id="atlasSvg" viewBox="0 0 1600 1000" aria-hidden="true"></svg><div id="atlasNodes"></div></div><div class="atlas-key">Drag to move · wheel / pinch trackpad to zoom · choose a node to return to that object</div></div></section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const surugaImg = id => `https://cdn.suruga-ya.jp/database/pics_webp/game/${id}.jpg.webp`;
+  const surugaFallback = id => `https://www.suruga-ya.jp/database/pics_light/game/${id}.jpg`;
+  const surugaSource = id => `https://www.suruga-ya.jp/product/detail/${id}`;
+  const works = [
+    {id:'uno', title:'Shiseido UNO / non-sale advertising poster', short:'UNO advertising proof', origin:'Shiseido UNO promotion', distribution:'non-sale advertising poster; the artwork is independently listed in the official WATER contents', format:'promotional poster · dimensions unverified', kind:'promo', img:'https://auctions.c.yimg.jp/images.auctions.yahoo.co.jp/image/dr000/auc0403/users/ed26acb961c7a9b5ae5984ba0ae1e2121ac8d4f2/i-img1200x1012-1678085059t4g4au857681.jpg', source:'https://auctions.yahoo.co.jp/jp/auction/t1084009749', source2:'https://itplanning.co.jp/works/vb-jpn-water/', evidence:'Surviving physical non-sale poster photographed in a historical auction; IT Planning’s official WATER record identifies a Shiseido UNO promotional work among the collected originals.', confidence:'object + primary bibliographic cross-check', folds:false, chapter:1},
+    {id:'p6',title:'Volume 6 / entrant-lottery poster',short:'Vol. 6 lottery B3',origin:'Vagabond volume 6 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508929879',mm:[364,515],folds:true,chapter:1},
+    {id:'p7',title:'Volume 7 / entrant-lottery poster',short:'Vol. 7 lottery B3',origin:'Vagabond volume 7 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508929880',mm:[364,515],folds:true,chapter:1},
+    {id:'p15',title:'Volume 15 / entrant-lottery poster',short:'Vol. 15 lottery B3',origin:'Vagabond volume 15 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508929881',mm:[364,515],folds:true,chapter:1},
+    {id:'p16',title:'Volume 16 / Sasaki Kojiro prize poster',short:'Vol. 16 Kojiro B3',origin:'Vagabond volume 16 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923905',mm:[364,515],folds:true,chapter:1},
+    {id:'p17',title:'Volume 17 / Sasaki Kojiro prize poster',short:'Vol. 17 Kojiro B3',origin:'Vagabond volume 17 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923907',mm:[364,515],folds:true,chapter:1},
+    {id:'p18',title:'Volume 18 / Kojiro + Musashi prize poster',short:'Vol. 18 paired B3',origin:'Vagabond volume 18 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923909',mm:[364,515],folds:true,chapter:1},
+    {id:'p19',title:'Volume 19 / entrant-lottery poster',short:'Vol. 19 lottery B3',origin:'Vagabond volume 19 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923910',mm:[364,515],folds:true,chapter:1},
+    {id:'p21',title:'Volume 21 / entrant-lottery poster',short:'Vol. 21 lottery B3',origin:'Vagabond volume 21 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508912223',mm:[364,515],folds:true,chapter:2},
+    {id:'p22',title:'Volume 22 / Miyamoto Musashi prize poster',short:'Vol. 22 Musashi B3',origin:'Vagabond volume 22 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923912',mm:[364,515],folds:true,chapter:2},
+    {id:'p23',title:'Volume 23 / Miyamoto Musashi prize poster',short:'Vol. 23 Musashi B3',origin:'Vagabond volume 23 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923913',mm:[364,515],folds:true,chapter:2},
+    {id:'p25',title:'Volume 25 / Miyamoto Musashi prize poster',short:'Vol. 25 Musashi B3',origin:'Vagabond volume 25 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923914',mm:[364,515],folds:true,chapter:2},
+    {id:'p26',title:'Volume 26 / blue Musashi + red butterflies',short:'Vol. 26 butterfly B3',origin:'Vagabond volume 26 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923916',mm:[364,515],folds:true,chapter:2},
+    {id:'p27',title:'Volume 27 / entrant-lottery poster',short:'Vol. 27 lottery B3',origin:'Vagabond volume 27 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'508923917',mm:[364,515],folds:true,chapter:2},
+    {id:'p28',title:'Volume 28 / cover-design prize poster',short:'Vol. 28 prayer B3',origin:'Vagabond volume 28 campaign',distribution:'applicant lottery prize documented by Suruga-ya',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'608911441',mm:[364,515],folds:true,chapter:2},
+    {id:'p29',title:'Volume 29 / 2,000-winner prize poster',short:'Vol. 29 2,000-copy B3',origin:'Vagabond volume 29 campaign',distribution:'applicant lottery prize; archive record specifies 2,000 winners',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'608946659',mm:[364,515],folds:true,chapter:2},
+    {id:'p32',title:'Volume 32 / entrant-lottery poster',short:'Vol. 32 lottery B3',origin:'Vagabond volume 32 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'561913930',mm:[364,515],folds:true,chapter:2},
+    {id:'p33',title:'Volume 33 / Miyamoto Musashi prize poster',short:'Vol. 33 Musashi B3',origin:'Vagabond volume 33 campaign',distribution:'entrant lottery prize; not ordinary retail stock',format:'B3 prize poster · four-fold',kind:'lottery',catalog:'608974150',mm:[364,515],folds:true,chapter:2},
+    {id:'p34',title:'Volume 34 / 2,000-winner prize poster',short:'Vol. 34 2,000-copy B3',origin:'Vagabond volume 34 campaign',distribution:'purchase-and-apply lottery; contemporary report specifies 2,000 winners',format:'B3 prize poster',kind:'lottery',catalog:'508925509',mm:[364,515],folds:false,chapter:2, source2:'https://natalie.mu/comic/news/78693'},
+    {id:'p35',title:'Volume 35 / cover-design prize poster',short:'Vol. 35 lottery B3',origin:'Vagabond volume 35 campaign',distribution:'applicant lottery prize documented by Suruga-ya',format:'B3 prize poster',kind:'lottery',catalog:'608911440',mm:[364,515],folds:false,chapter:2},
+    {id:'p36',title:'Volume 36 / cover-design prize poster',short:'Vol. 36 lottery B3',origin:'Vagabond volume 36 campaign',distribution:'applicant lottery prize documented by Suruga-ya',format:'B3 prize poster',kind:'lottery',catalog:'608965785',mm:[364,515],folds:false,chapter:2},
+    {id:'ueno',title:'Last Manga Exhibition / Ueno B1',short:'Ueno web-shop B1',origin:'The Last Manga Exhibition, Ueno edition',distribution:'FLOWER web-shop / exhibition-linked limited poster',format:'B1 poster',kind:'exhibition',catalog:'608929846',mm:[1030,728],folds:false,chapter:3},
+    {id:'osaka',title:'Last Manga Exhibition / Osaka B1',short:'Osaka web-shop B1',origin:'The Last Manga Exhibition, Osaka edition',distribution:'FLOWER web-shop / exhibition-linked limited poster',format:'B1 poster',kind:'exhibition',catalog:'608929847',mm:[1030,728],folds:false,chapter:3},
+    {id:'sendai',title:'Last Manga Exhibition / Sendai B1',short:'Sendai web-shop B1',origin:'The Last Manga Exhibition, Sendai edition',distribution:'FLOWER web-shop / exhibition-linked limited poster',format:'B1 poster',kind:'exhibition',catalog:'608929844',mm:[1030,728],folds:false,chapter:3},
+    {id:'otsuu',title:'Last Manga Exhibition / Otsu B1',short:'Otsu web-shop B1',origin:'The Last Manga Exhibition',distribution:'FLOWER web-shop / exhibition-linked limited character poster',format:'B1 poster',kind:'exhibition',catalog:'608965784',mm:[728,1030],folds:false,chapter:3},
+    {id:'postcards',title:'Last Manga Exhibition / four-postcard set',short:'Exhibition postcard set',origin:'The Last Manga Exhibition',distribution:'four-card set sold only as exhibition merchandise',format:'4 postcards · approx. 100 × 150 mm each',kind:'exhibition',catalog:'892505198',mm:null,folds:false,chapter:3}
+  ];
+
+  works.forEach(w => {
+    if(w.catalog){ w.img = surugaImg(w.catalog); w.fallback = surugaFallback(w.catalog); w.source = w.source || surugaSource(w.catalog); w.evidence = w.evidence || 'Suruga-ya collector-object record identifies the physical format and distribution status of the surviving object.'; w.confidence = w.confidence || 'collector catalog record'; }
+  });
+
+  const layouts = [
+    ['136vh','44vw','39vw','auto'],['116vh','36vw','9vw','auto'],['142vh','54vw','auto','7vw'],['124vh','39vw','23vw','auto'],['151vh','68vw','auto','auto'],['121vh','35vw','8vw','auto'],['137vh','49vw','auto','12vw'],['129vh','42vw','28vw','auto'],
+    ['116vh','37vw','10vw','auto'],['146vh','63vw','auto','5vw'],['126vh','41vw','auto','20vw'],['137vh','50vw','14vw','auto'],['151vh','72vw','auto','auto'],['118vh','34vw','56vw','auto'],['132vh','45vw','7vw','auto'],['140vh','54vw','auto','9vw'],['122vh','39vw','25vw','auto'],['150vh','66vw','auto','auto'],['119vh','36vw','10vw','auto'],['135vh','49vw','auto','12vw'],['129vh','43vw','22vw','auto'],
+    ['151vh','78vw','auto','auto'],['128vh','58vw','8vw','auto'],['145vh','74vw','auto','3vw'],['123vh','37vw','54vw','auto'],['136vh','50vw','14vw','auto']
+  ];
+
+  const $ = (s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const route1=$('#route'), route2=$('#route2'), route3=$('#route3'), counter=$('#counter'), toast=$('#toast'), loupe=$('#loupe');
+  let current=0, activeDirectTool=null, measureStart=null, measureSvg=null, atlasState={x:-800,y:-500,scale:1};
+
+  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+  function sourceLabel(w){return w.kind==='exhibition'?'event object':'object record'}
+  function workHTML(w,i){
+    const [h,width,ml,mr]=layouts[i%layouts.length];
+    const dark=w.kind==='exhibition' && i%2===1;
+    return `<section class="work ${dark?'dark':''}" id="work-${w.id}" data-index="${i}" style="--h:${h};--w:min(${width},1120px);--ml:${ml};--mr:${mr};--mw:${i%3===0?'93vw':'82vw'};--mml:${i%4===0?'0':'auto'};--mmr:${i%4===0?'auto':'auto'}">
+      <figure class="reveal">
+        <button class="art-button" type="button" aria-label="Isolate ${esc(w.title)}">
+          <span class="art-shell" data-index="${i}">
+            <img class="art-image" src="${esc(w.img)}" ${w.fallback?`data-fallback="${esc(w.fallback)}"`:''} alt="Physical archival image of ${esc(w.title)}" loading="${i<2?'eager':'lazy'}" referrerpolicy="no-referrer" />
+            <span class="fold-grid" aria-hidden="true"></span>
+          </span>
+        </button>
+        <figcaption><span class="cap-title">${String(i+1).padStart(2,'0')} / ${esc(w.title)}</span><span class="cap-meta">${esc(w.format)} · ${esc(w.distribution)} · <a href="${esc(w.source)}" target="_blank" rel="noreferrer">${sourceLabel(w)} ↗</a></span></figcaption>
+      </figure>${w.folds?'<span class="special-note">documented four-fold delivery</span>':''}
+    </section>`;
+  }
+
+  works.forEach((w,i)=>{
+    const html=workHTML(w,i);
+    (w.chapter===1?route1:w.chapter===2?route2:route3).insertAdjacentHTML('beforeend',html);
+  });
+
+  const workEls=$$('.work');
+  function setCurrent(i){
+    current=Math.max(0,Math.min(works.length-1,i));
+    counter.textContent=`${String(current+1).padStart(2,'0')} / ${String(works.length).padStart(2,'0')}`;
+    $('#toolsContext').textContent=works[current].short;
+    if(activeDirectTool==='loupe') setupLoupeForCurrent();
+    if(activeDirectTool==='light') setupLightForCurrent();
+  }
+
+  const activeObs=new IntersectionObserver(entries=>{
+    const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(vis) setCurrent(Number(vis.target.dataset.index));
+  },{threshold:[.18,.33,.5],rootMargin:'-18% 0px -18% 0px'});
+  workEls.forEach(e=>activeObs.observe(e));
+
+  const revObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');revObs.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  $$('.reveal').forEach(e=>revObs.observe(e));
+
+  $$('.art-image').forEach(img=>{
+    const shell=img.closest('.art-shell');
+    const ok=()=>{img.classList.add('loaded');shell.classList.remove('failed')};
+    const bad=()=>{if(img.dataset.fallback){const f=img.dataset.fallback;delete img.dataset.fallback;img.src=f}else shell.classList.add('failed')};
+    if(img.complete&&img.naturalWidth)ok(); img.addEventListener('load',ok);img.addEventListener('error',bad);
+  });
+
+  function openPanel(id){
+    closePanels(false); const p=$('#'+id); p.classList.add('open');p.setAttribute('aria-hidden','false');document.body.classList.add('lock');
+  }
+  function closePanels(clear=true){
+    $$('.panel.open').forEach(p=>{p.classList.remove('open');p.setAttribute('aria-hidden','true')});document.body.classList.remove('lock');
+    if(clear) clearDirectTool();
+  }
+  $$('[data-close]').forEach(b=>b.addEventListener('click',()=>closePanels()));
+
+  function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.classList.remove('show'),1900)}
+  function currentShell(){return $(`.art-shell[data-index="${current}"]`)}
+  function currentImg(){return $('.art-image',currentShell())}
+
+  function openIsolate(){
+    const w=works[current], img=currentImg(); $('#isolateContext').textContent=w.short;$('#isolateImage').src=img.currentSrc||img.src;$('#isolateImage').alt=img.alt;$('#isolateSource').href=w.source;openPanel('isolatePanel');
+  }
+  $$('.art-button').forEach((b,i)=>b.addEventListener('click',()=>{setCurrent(i);openIsolate()}));
+
+  function clearDirectTool(){
+    document.body.classList.remove('loupe-on','measure-on','light-on');
+    $$('.art-shell').forEach(s=>s.classList.remove('raking','creased','folded'));
+    if(measureSvg){measureSvg.remove();measureSvg=null} measureStart=null; activeDirectTool=null;
+  }
+
+  function activateDirect(name){
+    clearDirectTool(); activeDirectTool=name;
+    if(name==='loupe')setupLoupeForCurrent();
+    if(name==='light')setupLightForCurrent();
+    if(name==='measure')setupMeasureForCurrent();
+    closePanels(false);
+  }
+
+  function setupLoupeForCurrent(){
+    document.body.classList.add('loupe-on');const img=currentImg();const shell=currentShell();if(!img||!shell)return;
+    function move(e){const r=img.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom){loupe.style.opacity='0';return}loupe.style.opacity='1';const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;loupe.style.left=(e.clientX-90)+'px';loupe.style.top=(e.clientY-90)+'px';loupe.style.backgroundImage=`url("${img.currentSrc||img.src}")`;loupe.style.backgroundSize=`${r.width*3.4}px ${r.height*3.4}px`;loupe.style.backgroundPosition=`${-(x*r.width*3.4)+90}px ${-(y*r.height*3.4)+90}px`;}
+    setupLoupeForCurrent.cleanup&&setupLoupeForCurrent.cleanup(); shell.addEventListener('pointermove',move);shell.addEventListener('pointerleave',()=>loupe.style.opacity='0');setupLoupeForCurrent.cleanup=()=>shell.removeEventListener('pointermove',move);showToast('Loupe active · Esc clears');
+  }
+
+  function setupLightForCurrent(){
+    document.body.classList.add('light-on');const shell=currentShell();if(!shell)return;shell.classList.add('raking');
+    function move(e){const r=shell.getBoundingClientRect();shell.style.setProperty('--lx',`${((e.clientX-r.left)/r.width)*100}%`);shell.style.setProperty('--ly',`${((e.clientY-r.top)/r.height)*100}%`)}
+    setupLightForCurrent.cleanup&&setupLightForCurrent.cleanup();shell.addEventListener('pointermove',move);setupLightForCurrent.cleanup=()=>shell.removeEventListener('pointermove',move);showToast('Raking light active · move across paper');
+  }
+
+  function toggleFold(){
+    clearDirectTool();const w=works[current],shell=currentShell();if(!w.folds){showToast('No confirmed fold record for this object');return}
+    const state=shell.dataset.foldState||'flat';if(state==='flat'){shell.classList.add('creased');shell.dataset.foldState='creased';showToast('Crease map: four-fold delivery')}else if(state==='creased'){shell.classList.remove('creased');shell.classList.add('folded');shell.dataset.foldState='folded';showToast('Object folded toward its mailed state')}else{shell.classList.remove('folded','creased');shell.dataset.foldState='flat';showToast('Returned flat')}
+  }
+
+  function setupMeasureForCurrent(){
+    const w=works[current],shell=currentShell();if(!w.mm){showToast('Physical dimensions not verified for this object');return}document.body.classList.add('measure-on');
+    measureSvg=document.createElementNS('http://www.w3.org/2000/svg','svg');measureSvg.setAttribute('class','measure-layer');measureSvg.setAttribute('width','100%');measureSvg.setAttribute('height','100%');shell.appendChild(measureSvg);
+    const img=currentImg();
+    function pxy(e){const r=img.getBoundingClientRect(),sr=shell.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,rx:e.clientX-sr.left,ry:e.clientY-sr.top,r}}
+    function down(e){e.preventDefault();measureStart=pxy(e);measureSvg.innerHTML=''}
+    function move(e){if(!measureStart)return;const p=pxy(e),r=p.r;const dx=p.x-measureStart.x,dy=p.y-measureStart.y;const mmx=dx/r.width*w.mm[0],mmy=dy/r.height*w.mm[1],mm=Math.hypot(mmx,mmy);const x1=measureStart.rx,y1=measureStart.ry,x2=p.rx,y2=p.ry;measureSvg.innerHTML=`<line class="measure-line" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><circle class="measure-dot" cx="${x1}" cy="${y1}" r="3"/><circle class="measure-dot" cx="${x2}" cy="${y2}" r="3"/><text class="measure-text" x="${(x1+x2)/2+8}" y="${(y1+y2)/2-8}">${Math.round(mm)} mm</text>`}
+    function up(){measureStart=null}
+    shell.addEventListener('pointerdown',down);shell.addEventListener('pointermove',move);window.addEventListener('pointerup',up,{once:false});setupMeasureForCurrent.cleanup=()=>{shell.removeEventListener('pointerdown',down);shell.removeEventListener('pointermove',move);window.removeEventListener('pointerup',up)};showToast('Drag across the image to measure in millimetres');
+  }
+
+  function scaleStudy(){
+    clearDirectTool();const w=works[current];if(!w.mm){showToast('Physical dimensions not verified for this object');return}
+    const img=currentImg().currentSrc||currentImg().src, [mw,mh]=w.mm; const maxH=560, pxPerMm=Math.min(maxH/1700, .36); const objW=mw*pxPerMm,objH=mh*pxPerMm, personH=1700*pxPerMm;
+    $('#studyContext').textContent=w.short;$('#studyTitle').textContent='Physical scale';$('#studyBody').innerHTML=`<div class="study-grid"><div><h2>Body / object.</h2><p>The print is mounted against a 170 cm reference figure. This is scale, not a decorative mockup: the same millimetre ratio is used for both.</p><div class="study-meta"><strong>${esc(w.format)}</strong><br>${mw} × ${mh} mm<br>reference body: 1700 mm</div></div><div class="scale-wall"><div class="scale-floor"></div><svg class="scale-person" viewBox="0 0 100 400" style="height:${personH}px" aria-label="170 centimetre human reference"><circle cx="50" cy="34" r="23" fill="none" stroke="#4d4942" stroke-width="3"/><path d="M50 58 C38 80 34 115 36 158 L28 255 M50 84 L70 154 L78 248 M37 158 L34 285 L22 392 M63 158 L67 284 L82 392" fill="none" stroke="#4d4942" stroke-width="5" stroke-linecap="round"/></svg><img class="scale-object" src="${img}" alt="${esc(w.title)} at relative physical scale" style="width:${objW}px;height:${objH}px"/><span class="scale-label" style="left:12%;bottom:3%">170 cm</span><span class="scale-label" style="left:48%;bottom:3%;transform:translateX(-50%)">${mw} × ${mh} mm</span></div></div>`;openPanel('studyPanel');
+  }
+
+  function compareStudy(){
+    clearDirectTool();const w=works[current];$('#studyContext').textContent=w.short;$('#studyTitle').textContent='Compare';
+    const buttons=works.map((x,i)=>`<button type="button" data-compare="${i}" class="${i===current?'active':''}">${String(i+1).padStart(2,'0')} ${esc(x.short)}</button>`).join('');
+    $('#studyBody').innerHTML=`<div class="compare-select" id="compareSelect">${buttons}</div><div class="compare-stage" id="compareStage"></div>`;const stage=$('#compareStage');
+    const render=(j)=>{const a=works[current],b=works[j],ai=currentImg().currentSrc||currentImg().src,bi=$(`.art-shell[data-index="${j}"] .art-image`).currentSrc||$(`.art-shell[data-index="${j}"] .art-image`).src;stage.innerHTML=`<figure><img src="${ai}" alt="${esc(a.title)}"><figcaption><span class="cap-title">${esc(a.title)}</span></figcaption></figure><figure><img src="${bi}" alt="${esc(b.title)}"><figcaption><span class="cap-title">${esc(b.title)}</span></figcaption></figure>`;$$('[data-compare]').forEach(btn=>btn.classList.toggle('active',Number(btn.dataset.compare)===j))};
+    $$('[data-compare]').forEach(btn=>btn.addEventListener('click',()=>render(Number(btn.dataset.compare))));render((current+1)%works.length);openPanel('studyPanel');
+  }
+
+  function provenanceStudy(){
+    clearDirectTool();const w=works[current];$('#studyContext').textContent=w.short;$('#studyTitle').textContent='Provenance';$('#studyBody').innerHTML=`<div class="provenance-thread"><div class="prov-step"><h3>01 / Made for</h3><p>${esc(w.origin)}</p><small>This is the object’s production context, not a theme assigned by this site.</small></div><div class="prov-step"><h3>02 / How it circulated</h3><p>${esc(w.distribution)}</p><small>${esc(w.format)}${w.folds?' · archive record explicitly notes four-fold delivery':''}.</small></div><div class="prov-step"><h3>03 / Why it survives here</h3><p>${esc(w.evidence)}</p><small>Evidence class: ${esc(w.confidence)}. <a href="${esc(w.source)}" target="_blank" rel="noreferrer">Open object record ↗</a>${w.source2?` · <a href="${esc(w.source2)}" target="_blank" rel="noreferrer">cross-check ↗</a>`:''}</small></div></div>`;openPanel('studyPanel');
+  }
+
+  function notesStudy(){
+    clearDirectTool();const w=works[current],key='vagabond-note-'+w.id;$('#studyContext').textContent=w.short;$('#studyTitle').textContent='Margin note';$('#studyBody').innerHTML=`<div class="notes-wrap"><div class="notes-preview"><img src="${currentImg().currentSrc||currentImg().src}" alt="${esc(w.title)}"><p>${esc(w.title)}<br>${esc(w.format)}</p></div><div class="notes-pad"><label for="noteArea">Your private note on this object</label><textarea id="noteArea" placeholder="Write in the margin…"></textarea><div class="notes-status" id="noteStatus">Stored only in this browser.</div></div></div>`;const ta=$('#noteArea');ta.value=localStorage.getItem(key)||'';let t;ta.addEventListener('input',()=>{clearTimeout(t);$('#noteStatus').textContent='Saving…';t=setTimeout(()=>{localStorage.setItem(key,ta.value);$('#noteStatus').textContent='Saved in this browser.'},300)});openPanel('studyPanel');setTimeout(()=>ta.focus(),50);
+  }
+
+  const wallKey='vagabond-curation-v2';
+  function loadWall(){try{return JSON.parse(localStorage.getItem(wallKey)||'[]')}catch{return[]}}
+  function saveWall(arr){localStorage.setItem(wallKey,JSON.stringify(arr))}
+  function renderWall(){
+    const body=$('#wallBody');$$('.wall-piece',body).forEach(e=>e.remove());let items=loadWall();$('#wallEmpty').style.display=items.length?'none':'grid';items.forEach((it,k)=>{const w=works[it.i];if(!w)return;const el=document.createElement('div');el.className='wall-piece';el.dataset.k=k;el.style.left=(it.x??(25+k*12))+'%';el.style.top=(it.y??(42+(k%3)*14))+'%';el.innerHTML=`<img src="${esc(w.img)}" ${w.fallback?`onerror="this.onerror=null;this.src='${esc(w.fallback)}'"`:''} alt="${esc(w.title)}"><span>${esc(w.short)}</span>`;body.appendChild(el);let drag=null;el.addEventListener('pointerdown',e=>{drag={dx:e.clientX-el.getBoundingClientRect().left-el.offsetWidth/2,dy:e.clientY-el.getBoundingClientRect().top-el.offsetHeight/2};el.setPointerCapture(e.pointerId)});el.addEventListener('pointermove',e=>{if(!drag)return;const r=body.getBoundingClientRect();const x=((e.clientX-r.left)/r.width)*100,y=((e.clientY-r.top)/r.height)*100;el.style.left=x+'%';el.style.top=y+'%'});el.addEventListener('pointerup',()=>{if(!drag)return;let arr=loadWall();arr[k].x=parseFloat(el.style.left);arr[k].y=parseFloat(el.style.top);saveWall(arr);drag=null});el.addEventListener('dblclick',()=>{let arr=loadWall();arr.splice(k,1);saveWall(arr);renderWall()})});
+  }
+  function openWall(){clearDirectTool();renderWall();openPanel('wallPanel')}
+  $('#wallAdd').addEventListener('click',()=>{let arr=loadWall();if(!arr.some(x=>x.i===current)){arr.push({i:current,x:25+(arr.length%5)*13,y:35+(arr.length%3)*17});saveWall(arr);renderWall();showToast('Pinned to your wall')}else showToast('Already pinned · double-click a print to remove')});
+
+  function buildAtlas(){
+    const nodes=$('#atlasNodes'),svg=$('#atlasSvg');nodes.innerHTML='';svg.innerHTML='';const pts=[];works.forEach((w,i)=>{const band=w.chapter===1?0:w.chapter===2?1:2;const x=180+band*510+(i%4)*72;const y=120+(i*113)%760+(band%2)*45;pts.push([x,y]);const b=document.createElement('button');b.className='atlas-node';b.style.left=x+'px';b.style.top=y+'px';b.innerHTML=`<span class="dot"></span><strong>${esc(w.short)}</strong><small>${esc(w.kind)} · ${esc(w.format)}</small>`;b.addEventListener('click',()=>{closePanels(false);workEls[i].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});setCurrent(i)});nodes.appendChild(b)});const ns='http://www.w3.org/2000/svg';for(let i=1;i<pts.length;i++){const path=document.createElementNS(ns,'path');const [x1,y1]=pts[i-1],[x2,y2]=pts[i];const cx=(x1+x2)/2;path.setAttribute('d',`M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`);path.setAttribute('class','atlas-line');svg.appendChild(path)}
+  }
+  function applyAtlas(){const c=$('#atlasCanvas');c.style.transform=`translate(${atlasState.x}px,${atlasState.y}px) scale(${atlasState.scale})`}
+  function openAtlas(){clearDirectTool();buildAtlas();const body=$('#atlasBody');const r=body.getBoundingClientRect();atlasState={x:r.width/2-800,y:r.height/2-500,scale:Math.min(.82,r.width/1450)};applyAtlas();openPanel('atlasPanel')}
+  (()=>{const body=$('#atlasBody');let drag=null;body.addEventListener('pointerdown',e=>{if(e.target.closest('.atlas-node'))return;drag={x:e.clientX,y:e.clientY,ox:atlasState.x,oy:atlasState.y};body.classList.add('dragging');body.setPointerCapture(e.pointerId)});body.addEventListener('pointermove',e=>{if(!drag)return;atlasState.x=drag.ox+(e.clientX-drag.x);atlasState.y=drag.oy+(e.clientY-drag.y);applyAtlas()});body.addEventListener('pointerup',()=>{drag=null;body.classList.remove('dragging')});body.addEventListener('wheel',e=>{e.preventDefault();const old=atlasState.scale,n=Math.max(.35,Math.min(1.65,old*(e.deltaY>0?.9:1.1)));atlasState.scale=n;applyAtlas()},{passive:false})})();
+
+  const tools=[
+    ['01','Isolate','Remove the page and leave only the current object.','isolate',()=>true,openIsolate],
+    ['02','Loupe','Magnify the current print at 3.4× under the pointer.','loupe',()=>true,()=>activateDirect('loupe')],
+    ['03','Raking light','Move a virtual low-angle light across the paper surface.','light',()=>true,()=>activateDirect('light')],
+    ['04','Fold map','Reconstruct only folds explicitly documented by the object record.','fold',()=>works[current].folds,toggleFold],
+    ['05','Measure','Drag across the print and read the distance in real millimetres.','measure',()=>!!works[current].mm,()=>activateDirect('measure')],
+    ['06','Physical scale','Mount the object against a 170 cm body using one shared scale.','scale',()=>!!works[current].mm,scaleStudy],
+    ['07','Compare','Hold this object beside any other rare object in the archive.','compare',()=>true,compareStudy],
+    ['08','Provenance','Trace what the object was made for, how it circulated and what evidence survives.','provenance',()=>true,provenanceStudy],
+    ['09','Margin note','Write a private note tied to this exact object; it stays in your browser.','notes',()=>true,notesStudy],
+    ['10','Curate a wall','Pin selected works to a wall and physically rearrange the hanging.','wall',()=>true,openWall],
+    ['11','Archive atlas','Pan and zoom through the full corpus as a connected spatial route.','atlas',()=>true,openAtlas]
+  ];
+  function renderTools(){const list=$('#toolList');list.innerHTML='';tools.forEach(t=>{const li=document.createElement('li');li.className='tool-item';const b=document.createElement('button');b.className='tool-btn';b.type='button';b.disabled=!t[4]();b.innerHTML=`<span class="tool-no">${t[0]}</span><span class="tool-name">${t[1]}</span><span class="tool-desc">${t[2]}${b.disabled?' · unavailable for this object':''}</span>`;b.addEventListener('click',t[5]);li.appendChild(b);list.appendChild(li)})}
+  $('#toolsOpen').addEventListener('click',()=>{clearDirectTool();renderTools();$('#toolsContext').textContent=works[current].short;openPanel('toolsPanel')});
+
+  document.addEventListener('keydown',e=>{
+    if(e.target.matches('textarea,input'))return;
+    if(e.key==='Escape'){if($$('.panel.open').length)closePanels();else clearDirectTool();return}
+    if($$('.panel.open').length)return;
+    const k=e.key.toLowerCase();
+    if(k==='i')openIsolate(); if(k==='l')activateDirect('loupe'); if(k==='r')activateDirect('light'); if(k==='f')toggleFold(); if(k==='m')activateDirect('measure'); if(k==='s')scaleStudy(); if(k==='c')compareStudy(); if(k==='p')provenanceStudy(); if(k==='n')notesStudy(); if(k==='w')openWall(); if(k==='a')openAtlas();
+  });
+
+  setCurrent(0);
+})();
+</script>
+</body>
+</html>
